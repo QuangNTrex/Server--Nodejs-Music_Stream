@@ -50,7 +50,7 @@ app.use(
 app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Origin",
-    "https://music-stream-819bd.web.app"
+    "https://music-stream-819bd.web.app, http://192.168.1.10:3000"
   );
   res.header(
     "Access-Control-Allow-Headers",
