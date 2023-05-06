@@ -26,12 +26,19 @@ app.use(
 );
 app.use(express.json());
 
+app.set("trust proxy", 1);
+
 app.use(
   session({
     secret: "the secret",
     saveUninitialized: true,
     cookie: {
-      maxAge: 604800 * 1000,
+      sameSite: "none",
+      // secure: process.env.NODE_ENV === "production",
+      // secure: false,
+      secure: true,
+      maxAge: 1000 * 60 * 60,
+      // httpOnly: true,
     },
     resave: false,
     store: store,
