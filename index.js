@@ -4,8 +4,7 @@ const cors = require("cors");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
-const URI =
-  "mongodb+srv://devquangnt:quang212511610@cluster0.aiokdwz.mongodb.net/server-audio-video?retryWrites=true&w=majority";
+const URI = process.env.URI;
 
 const store = new MongoDBStore({
   uri: URI,
@@ -19,7 +18,11 @@ const ChannelRouter = require("./routers/channel");
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:3001", "http://localhost:3000"],
+    origin: [
+      "http://localhost:3001",
+      "http://localhost:3000",
+      "https://music-stream-819bd.web.app",
+    ],
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     credentials: true,
   })
@@ -34,11 +37,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       sameSite: "none",
-      // secure: process.env.NODE_ENV === "production",
-      // secure: false,
       secure: true,
       maxAge: 1000 * 60 * 60,
-      // httpOnly: true,
     },
     resave: false,
     store: store,
