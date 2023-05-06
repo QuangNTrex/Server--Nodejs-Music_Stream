@@ -18,18 +18,6 @@ const AuthRouter = require("./routers/auth");
 const ChannelRouter = require("./routers/channel");
 const app = express();
 
-app.use(function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://music-stream-819bd.web.app"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-
 app.use(
   cors({
     origin: [
@@ -58,6 +46,18 @@ app.use(
     store: store,
   })
 );
+
+app.use(function (req, res, next) {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://music-stream-819bd.web.app"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 // download
 
