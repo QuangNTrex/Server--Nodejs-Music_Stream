@@ -4,7 +4,8 @@ const cors = require("cors");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
-const URI = process.env.URI;
+const URI =
+  "mongodb+srv://devquangnt:quang212511610@cluster0.aiokdwz.mongodb.net/server-audio-video?retryWrites=true&w=majority";
 
 const store = new MongoDBStore({
   uri: URI,
@@ -16,6 +17,19 @@ const StreamRouter = require("./routers/stream");
 const AuthRouter = require("./routers/auth");
 const ChannelRouter = require("./routers/channel");
 const app = express();
+
+app.use(function (req, res, next) {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://music-stream-819bd.web.app"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 app.use(
   cors({
     origin: [
